@@ -6,6 +6,12 @@ import (
 	"net/http/httptest"
 )
 
+// Serve registers a route, overwrites its response and returns a url string
+// that is ready to use. Basically, it helps one mock a http response.
+//
+// For example:
+//  url, closer := requesttest.Serve("/get", `{"status":"ok"}`)
+//  defer closer()
 func Serve(path string, response interface{}) (string, func()) {
 	mux := http.NewServeMux()
 	server := httptest.NewServer(mux)
