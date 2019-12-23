@@ -34,3 +34,6 @@ func main() {
 	fmt.Printf("%+v\n", r)
 }
 ```
+```sh
+&{Status:ok Query:map[k1:v1]}
+```
