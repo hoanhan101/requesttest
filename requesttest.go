@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func Serve(path string, response interface{}) (string, func()) {
