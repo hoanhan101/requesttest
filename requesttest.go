@@ -6,8 +6,7 @@ import (
 	"net/http/httptest"
 )
 
-// Serve registers a route, overwrites its response and returns a url string
-// that is ready to use. Basically, it helps one mock a http response.
+// Serve registers a route, overwrites its response and returns a ready-to-use URL.
 //
 // For example:
 //  url, closer := requesttest.Serve("/get", `{"status":"ok"}`)
