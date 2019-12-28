@@ -23,13 +23,13 @@ func Write(path string, response interface{}) (string, func()) {
 	return fmt.Sprintf("%s%s", server.URL, path), server.Close
 }
 
-// Echo a JSON response with the request's info.
-func Echo(path string) (string, func()) {
+// Echo a request's method and payload in JSON.
+func Echo() (string, func()) {
 	mux := http.NewServeMux()
 	server := httptest.NewServer(mux)
 
 	mux.HandleFunc(
-		path,
+		"/",
 		func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(200)
@@ -38,15 +38,13 @@ func Echo(path string) (string, func()) {
 			fmt.Fprint(
 				w,
 				fmt.Sprintf(
-					`{"method":"%s","host":"%s","url":"%s","form":"%s"}`,
+					`{"method":"%s","payload":"%s"}`,
 					r.Method,
-					r.Host,
-					r.URL.String(),
 					r.Form.Encode(),
 				),
 			)
 		},
 	)
 
-	return fmt.Sprintf("%s%s", server.URL, path), server.Close
+	return server.URL, server.Close
 }

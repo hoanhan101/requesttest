@@ -10,13 +10,11 @@ import (
 // Response describes a response from requesttest.Echo().
 type Response struct {
 	Method  string `json:"method"`
-	Host    string `json:"host"`
-	URL     string `json:"url"`
-	Payload string `json:"form"`
+	Payload string `json:"payload"`
 }
 
 func main() {
-	url, closer := requesttest.Echo("/echo")
+	url, closer := requesttest.Echo()
 	defer closer()
 
 	r := new(Response)
