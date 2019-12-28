@@ -6,23 +6,6 @@ import (
 	"net/http/httptest"
 )
 
-// Write a JSON response.
-func Write(path string, response interface{}) (string, func()) {
-	mux := http.NewServeMux()
-	server := httptest.NewServer(mux)
-
-	mux.HandleFunc(
-		path,
-		func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(200)
-			fmt.Fprint(w, response)
-		},
-	)
-
-	return fmt.Sprintf("%s%s", server.URL, path), server.Close
-}
-
 // Echo a request's method and payload in JSON.
 func Echo() (string, func()) {
 	mux := http.NewServeMux()
@@ -43,6 +26,23 @@ func Echo() (string, func()) {
 					r.Form.Encode(),
 				),
 			)
+		},
+	)
+
+	return server.URL, server.Close
+}
+
+// Mock a JSON response.
+func Mock(response interface{}) (string, func()) {
+	mux := http.NewServeMux()
+	server := httptest.NewServer(mux)
+
+	mux.HandleFunc(
+		"/",
+		func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(200)
+			fmt.Fprint(w, response)
 		},
 	)
 

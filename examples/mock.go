@@ -14,7 +14,7 @@ type Response struct {
 }
 
 func main() {
-	url, closer := requesttest.Write("/write", `{"status":"ok","payload":{"k1":"v1"}}`)
+	url, closer := requesttest.Mock(`{"status":"ok","payload":{"k1":"v1"}}`)
 	defer closer()
 
 	r := new(Response)
