@@ -29,6 +29,5 @@ func ExampleEcho() {
 		fmt.Println(err)
 	}
 
-	fmt.Printf("%+v\n", r)
-	// Output: &{Method:GET Payload:k1=v1}
+	fmt.Printf("%+v\n", r) // Output: &{Method:GET Payload:k1=v1}
 }
